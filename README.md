@@ -4,19 +4,21 @@ A collection of useful extension methods for arrays in C#.
 
 ## Features
 
-- **Add:** Append a single item to the end of an array.
-- **AddRange:** Append multiple items at the end of an array.
-- **AllEqual:** Check if all items in the array are equal.
-- **AnyNull:** Check if there is a null value present in the array.
-- **RemoveAt:** Remove an item at a specified index.
-- **InsertAt:** Insert an item at a specified index.
-- **Shuffle:** Shuffle the array elements randomly.
-- **IsEmpty:** Check if the array is empty.
-- **IsNullOrEmpty:** Check if the array is null or empty.
-- **SafeGet:** Get the element at the given index if it exists, otherwise return a default value.
-- **FindIndices:** Find all indices of items that match a given predicate.
-- **ForEach:** Execute an action for each element in the array.
-- ...
+## Features
+
+- **ForEach**: Execute an action for each item in the array.
+- **Add Items**: Easily append a single item or multiple items to an array.
+- **All Equal**: Check if all items in the array are equivalent.
+- **Remove/Insert**: Remove an item at a specific index or insert one.
+- **Shuffle**: Randomly rearrange the elements of an array.
+- **Array Checks**: Check if the array is empty, or contains any null values.
+- **Chunking**: Break the array into smaller arrays of a specified size.
+- **LastN**: Retrieve the last 'n' items from the array.
+- **ReplaceAll**: Replace all occurrences of a value in the array.
+- **Rotate**: Rotate the array left or right by a specified number of positions.
+- **Flatten**: Convert a 2D array into a single-dimensional array.
+- **FindIndices**: Find all indices of items that match a given predicate.
+- ... and more
 
 ## Installation
 
@@ -33,50 +35,69 @@ Some examples:
 ```csharp
 using ArrayExtensions;
 
-// Sample data
-string[] fruits = { "apple", "banana", "", "cherry", null, "apple", "date" };
+string[] fruits = { "apple", "banana", "cherry" };
 
-// 1. Adding an item
-fruits = fruits.Add("elderberry");
-Console.WriteLine(string.Join(", ", fruits));  // Output: apple, banana, , cherry, , apple, date, elderberry
+// Add a single item and multiple items
+fruits = fruits.Add("date");
+fruits = fruits.AddRange("fig", "grape");
 
-// 2. Checking for any null or empty strings
-bool hasNullOrEmpty = fruits.AnyNullOrEmpty();  // true
+// Insert and remove
+fruits = fruits.InsertAt(2, "blueberry");
+fruits = fruits.RemoveAt(3);  // Removes "cherry"
 
-// 3. Trimming all elements (removes any spaces if present)
-var trimmedFruits = fruits.TrimAll();
-Console.WriteLine(string.Join(", ", trimmedFruits));  // Output remains same as no fruits had extra spaces
+// Shuffle, check equality and null checks
+var shuffledFruits = fruits.Shuffle();
+bool allSame = fruits.AllEqual();  // Returns false
+bool hasNull = fruits.AnyNull();   // Returns false
 
-// 4. Checking if all items are the same
-bool areAllEqual = fruits.AllEqual();  // false
+// Chunking and replacing
+var chunkedFruits = fruits.Chunk(3);
+fruits = fruits.ReplaceAll("apple", "apricot");
 
-// 5. Checking for the presence of any null values
-bool hasNulls = fruits.AnyNull();  // true
+// Safe retrieval and finding indices
+var fruit = fruits.SafeGet(10, "unknown");  // Returns "unknown" as the 10th index doesn't exist
+var indices = fruits.FindIndices(f => f.StartsWith("a"));
 
-// 6. Remove an item at a specified index (3rd index in this case)
-fruits = fruits.RemoveAt(3);
-Console.WriteLine(string.Join(", ", fruits));  // Output: apple, banana, , , apple, date, elderberry
+// ForEach example to print fruits
+fruits.ForEach(f => Console.WriteLine(f));
 
-// 7. Insert an item at a specified index (3rd index in this case)
-fruits = fruits.InsertAt(3, "grape");
-Console.WriteLine(string.Join(", ", fruits));  // Output: apple, banana, , grape, , apple, date, elderberry
+// Extra examples:
 
-// 8. Shuffle the array (result varies due to randomness)
-fruits = fruits.Shuffle();
-Console.WriteLine(string.Join(", ", fruits));  // Varying output
+string[] fruits = { "apple", "banana", "cherry", "date", "fig", "grape", "blueberry" };
 
-// 9. Check if the array is empty
-bool isEmpty = fruits.IsEmpty();  // false
+// Check if all items in the array are equal
+bool allEqual = fruits.AllEqual();  // Returns false
 
-// 10. Safely get an element by index (if exists)
-string fifthFruit = fruits.SafeGet(5);  // Value depends on the shuffle operation
+// Check if any fruit name is empty or null
+bool hasEmptyOrNullOrWhiteSpace = fruits.AnyNullOrEmptyOrWhiteSpace();  // Returns false
 
-// 11. Find indices of items that match a predicate (e.g., items that are 'apple')
-var appleIndices = fruits.FindIndices(f => f == "apple");
-Console.WriteLine(string.Join(", ", appleIndices));  // Varying indices based on shuffle
+// Trim all items
+string[] trimmedFruits = { " apple ", "banana ", " cherry", " date " };
+trimmedFruits = trimmedFruits.TrimAll();
 
-// 12. Execute an action for each element in the array
-fruits.ForEach(f => Console.WriteLine(f.ToUpper()));
+// Find indices of all fruits that start with "b"
+int[] bFruitIndices = fruits.FindIndices(f => f.StartsWith("b"));  // Returns indices for "banana" and "blueberry"
+
+// Get the first three fruits without creating a new array 
+string[] firstThree = fruits.Slice(0, 3);  // Returns { "apple", "banana", "cherry" }
+
+// Retrieve items in a safe manner
+var tenthFruit = fruits.SafeGet(9, "unknown");  // Index 9 doesn't exist, so it returns "unknown"
+
+// Execute an action for each fruit, for example, print them
+fruits.ForEach(Console.WriteLine);
+
+// Count occurrences of a particular fruit
+int appleCount = fruits.CountOf("apple");  // Returns 1
+
+// Replace all occurrences of a fruit with another
+fruits = fruits.ReplaceAll("banana", "mango");  // Replaces "banana" with "mango"
+
+// Get distinct items in the array
+var distinctFruits = fruits.DistinctValues();
+
+// Get the most common fruit (or any most common string in an array)
+var mostCommonFruit = fruits.MostCommon();
 ```
 
 ## License
