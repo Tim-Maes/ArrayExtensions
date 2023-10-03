@@ -16,7 +16,8 @@ A collection of useful extension methods for arrays in C#.
 - **SafeGet:** Get the element at the given index if it exists, otherwise return a default value.
 - **FindIndices:** Find all indices of items that match a given predicate.
 - **ForEach:** Execute an action for each element in the array.
-- 
+- ...
+
 ## Installation
 
 Install via NuGet:
