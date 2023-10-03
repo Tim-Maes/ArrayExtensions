@@ -16,6 +16,28 @@ A collection of useful extension methods for arrays in C#.
 - **SafeGet:** Get the element at the given index if it exists, otherwise return a default value.
 - **FindIndices:** Find all indices of items that match a given predicate.
 - **ForEach:** Execute an action for each element in the array.
+- 
+## Installation
+
+Install via NuGet:
+
+```bash
+Install-Package ArrayExtensions
+```
+
+## Usage
+
+Here's how you can use the extensions:
+
+```csharp
+using ArrayExtensions;
+
+string[] data = { "apple", "banana", "cherry" };
+data = data.Add("date");
+bool allEqual = data.AllEqual();
+```
+
+- 
 
 ## License
 
