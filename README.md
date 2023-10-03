@@ -4,8 +4,6 @@ A collection of useful extension methods for arrays in C#.
 
 ## Features
 
-## Features
-
 - **ForEach**: Execute an action for each item in the array.
 - **MostCommon**: Find the most common item in the array.
 - **Add Items**: Easily append a single item or multiple items to an array.
