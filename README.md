@@ -7,18 +7,21 @@ A collection of useful extension methods for arrays in C#.
 ## Features
 
 - **ForEach**: Execute an action for each item in the array.
+- **MostCommon**: Find the most common item in the array.
 - **Add Items**: Easily append a single item or multiple items to an array.
 - **All Equal**: Check if all items in the array are equivalent.
+- **DeepCopy**: A new array that is a deep copy of the source array.
 - **Remove/Insert**: Remove an item at a specific index or insert one.
 - **Shuffle**: Randomly rearrange the elements of an array.
 - **Array Checks**: Check if the array is empty, or contains any null values.
 - **Chunking**: Break the array into smaller arrays of a specified size.
 - **LastN**: Retrieve the last 'n' items from the array.
+- **Slice**: Returns a portion of the array.
 - **ReplaceAll**: Replace all occurrences of a value in the array.
 - **Rotate**: Rotate the array left or right by a specified number of positions.
 - **Flatten**: Convert a 2D array into a single-dimensional array.
 - **FindIndices**: Find all indices of items that match a given predicate.
-- ... and more
+- .. and more
 
 ## Installation
 
