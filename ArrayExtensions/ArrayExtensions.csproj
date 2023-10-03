@@ -12,6 +12,7 @@
     <PackageTags>array, extensions</PackageTags>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
