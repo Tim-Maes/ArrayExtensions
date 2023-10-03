@@ -1,26 +1,6 @@
 # ArrayExtensions
 
-A collection of useful extension methods for arrays in C#. Enhance your arrays with additional utility functions!
-
-## Installation
-
-Install via NuGet:
-
-\```bash
-Install-Package ArrayExtensions
-\```
-
-## Usage
-
-Here's how you can use the extensions:
-
-\```csharp
-using ArrayExtensions;
-
-string[] data = { "apple", "banana", "cherry" };
-data = data.Add("date");
-bool allEqual = data.AllEqual();
-\```
+A collection of useful extension methods for arrays in C#. 
 
 ## Features
 
@@ -36,12 +16,6 @@ bool allEqual = data.AllEqual();
 - **SafeGet:** Get the element at the given index if it exists, otherwise return a default value.
 - **FindIndices:** Find all indices of items that match a given predicate.
 - **ForEach:** Execute an action for each element in the array.
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Ensure to update tests as appropriate.
 
 ## License
 
