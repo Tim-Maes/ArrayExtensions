@@ -28,7 +28,7 @@ Install-Package ArrayExtensions
 
 ## Usage
 
-To leverage the power of `ArrayExtensions`, simply add the namespace and apply the desired extensions to your arrays. Here's a comprehensive example of the extensions in action:
+Some examples:
 
 ```csharp
 using ArrayExtensions;
