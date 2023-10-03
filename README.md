@@ -70,7 +70,7 @@ string[] fruits = { "apple", "banana", "cherry", "date", "fig", "grape", "bluebe
 bool allEqual = fruits.AllEqual();  // Returns false
 
 // Check if any fruit name is empty or null
-bool hasEmptyOrNullOrWhiteSpace = fruits.AnyNullOrEmptyOrWhiteSpace();  // Returns false
+bool hasEmptyOrNull = fruits.AnyNullOrEmpty();  // Returns false
 
 // Trim all items
 string[] trimmedFruits = { " apple ", "banana ", " cherry", " date " };
