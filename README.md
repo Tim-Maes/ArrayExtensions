@@ -29,6 +29,8 @@ Install via NuGet:
 Install-Package ArrayExtensions
 ```
 
+Or just copy whatever you need from this repository :) 
+
 ## Usage
 
 Some examples:
