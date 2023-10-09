@@ -4,22 +4,14 @@ A collection of useful extension methods for arrays in C#.
 
 ## Features
 
-- **ForEach**: Execute an action for each item in the array.
-- **MostCommon**: Find the most common item in the array.
-- **Add Items**: Easily append a single item or multiple items to an array.
-- **All Equal**: Check if all items in the array are equivalent.
-- **DeepCopy**: A new array that is a deep copy of the source array.
-- **Remove/Insert**: Remove an item at a specific index or insert one.
-- **Shuffle**: Randomly rearrange the elements of an array.
-- **Array Checks**: Check if the array is empty, or contains any null values.
-- **Chunking**: Break the array into smaller arrays of a specified size.
-- **LastN**: Retrieve the last 'n' items from the array.
-- **Slice**: Returns a portion of the array.
-- **ReplaceAll**: Replace all occurrences of a value in the array.
-- **Rotate**: Rotate the array left or right by a specified number of positions.
-- **Flatten**: Convert a 2D array into a single-dimensional array.
-- **FindIndices**: Find all indices of items that match a given predicate.
-- .. and more
+- **Basic Operations**: Easily `Add`, `Insert`, `Remove`, and `Replace` items.
+- **Array Manipulation**: `Shuffle`, `Rotate`, `Chunk`, `Flatten`, and `Resize` your arrays.
+- **Array Analysis**: Check if arrays are `AllEqual`, `AnyNull`, `IsEmpty`, or even find the `MostCommon` element.
+- **String Array Utilities**: Methods like `TrimAll`, `AnyNullOrEmpty`, and `ConcatenateWithSeparator`.
+- **DateTime Array Utilities**: Filter by `Weekdays`, `Weekends`, `Holidays`, and more.
+- **Safe Operations**: Safely `Get`, `Set`, and `FindIndices` without worrying about out-of-range errors.
+- **Functional Programming**: Use `ForEach` to apply actions directly on array elements.
+- ... and many more
 
 ## Installation
 
@@ -38,69 +30,46 @@ Some examples:
 ```csharp
 using ArrayExtensions;
 
+// Basic array of fruits
 string[] fruits = { "apple", "banana", "cherry" };
 
-// Add a single item and multiple items
-fruits = fruits.Add("date");
-fruits = fruits.AddRange("fig", "grape");
+// Add items
+fruits = fruits.Add("date").AddRange("fig", "grape");
 
-// Insert and remove
-fruits = fruits.InsertAt(2, "blueberry");
-fruits = fruits.RemoveAt(3);  // Removes "cherry"
+// Manipulate array
+fruits = fruits.InsertAt(2, "blueberry").RemoveAt(3).Shuffle();
 
-// Shuffle, check equality and null checks
-var shuffledFruits = fruits.Shuffle();
-bool allSame = fruits.AllEqual();  // Returns false
-bool hasNull = fruits.AnyNull();   // Returns false
+// Analyze array
+bool allSame = fruits.AllEqual();
+bool hasEmptyOrNull = fruits.AnyNullOrEmpty();
 
-// Chunking and replacing
-var chunkedFruits = fruits.Chunk(3);
-fruits = fruits.ReplaceAll("apple", "apricot");
-
-// Safe retrieval and finding indices
-var fruit = fruits.SafeGet(10, "unknown");  // Returns "unknown" as the 10th index doesn't exist
-var indices = fruits.FindIndices(f => f.StartsWith("a"));
-
-// ForEach example to print fruits
-fruits.ForEach(f => Console.WriteLine(f));
-
-// Extra examples:
-
-string[] fruits = { "apple", "banana", "cherry", "date", "fig", "grape", "blueberry" };
-
-// Check if all items in the array are equal
-bool allEqual = fruits.AllEqual();  // Returns false
-
-// Check if any fruit name is empty or null
-bool hasEmptyOrNull = fruits.AnyNullOrEmpty();  // Returns false
-
-// Trim all items
+// String utilities
 string[] trimmedFruits = { " apple ", "banana ", " cherry", " date " };
 trimmedFruits = trimmedFruits.TrimAll();
 
-// Find indices of all fruits that start with "b"
-int[] bFruitIndices = fruits.FindIndices(f => f.StartsWith("b"));  // Returns indices for "banana" and "blueberry"
+// DateTime utilities
+DateTime[] holidays = { new DateTime(2023, 12, 25), new DateTime(2023, 1, 1) };
+var holidayDates = dates.FilterHolidays(holidays);
+var weekdays = dates.FilterWeekdays();
 
-// Get the first three fruits without creating a new array 
-string[] firstThree = fruits.Slice(0, 3);  // Returns { "apple", "banana", "cherry" }
+// Safe operations
+var fruit = fruits.SafeGet(10, "unknown");
+var indices = fruits.FindIndices(f => f.StartsWith("a"));
 
-// Retrieve items in a safe manner
-var tenthFruit = fruits.SafeGet(9, "unknown");  // Index 9 doesn't exist, so it returns "unknown"
-
-// Execute an action for each fruit, for example, print them
+// Functional programming
 fruits.ForEach(Console.WriteLine);
 
-// Count occurrences of a particular fruit
-int appleCount = fruits.CountOf("apple");  // Returns 1
+// More advanced operations
+var chunkedFruits = fruits.Chunk(2);  // Splits the array into chunks of 2
+var rotatedFruits = fruits.RotateLeft(2);  // Rotates the array to the left by 2 positions
+var lastThreeFruits = fruits.LastN(3);  // Retrieves the last 3 fruits
+var distinctFruits = fruits.DistinctValues();  // Gets distinct fruit values
+var mostCommonFruit = fruits.MostCommon();  // Finds the most common fruit
 
-// Replace all occurrences of a fruit with another
-fruits = fruits.ReplaceAll("banana", "mango");  // Replaces "banana" with "mango"
-
-// Get distinct items in the array
-var distinctFruits = fruits.DistinctValues();
-
-// Get the most common fruit (or any most common string in an array)
-var mostCommonFruit = fruits.MostCommon();
+// DateTime specific operations
+DateTime[] dateArray = { new DateTime(2023, 1, 1), new DateTime(2023, 2, 14), new DateTime(2023, 12, 25) };
+var range = dateArray.DateRange();  // Gets the range between the earliest and latest date
+var closestToNewYear = dateArray.ClosestTo(new DateTime(2023, 1, 15));  // Finds the date closest to Jan 15, 2023
 ```
 
 ## License
