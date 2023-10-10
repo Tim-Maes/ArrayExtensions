@@ -47,10 +47,8 @@ bool hasEmptyOrNull = fruits.AnyNullOrEmpty();
 string[] trimmedFruits = { " apple ", "banana ", " cherry", " date " };
 trimmedFruits = trimmedFruits.TrimAll();
 fruitsWithValues = fruitsWithValues.RemoveNullOrEmpty();  // Removes empty and null values, resulting in { "apple", "cherry" }
-
 string[] fruitsWithSpaces = { "apple", "   ", "cherry", null };
 fruitsWithSpaces = fruitsWithSpaces.RemoveNullOrWhiteSpace();  // Removes whitespace-only and null values, resulting in { "apple", "cherry" }
-
 bool hasDuplicateFruits = fruits.HasDuplicates();  // Checks if there are any duplicate fruit names
 string fruitSentence = fruits.ConcatenateWithSeparator(", ");  // Joins all fruit names with a comma separator
 string[] fruitsWithPattern = fruits.FilterByPattern("^a.*");  // Filters fruits that start with the letter 'a'
