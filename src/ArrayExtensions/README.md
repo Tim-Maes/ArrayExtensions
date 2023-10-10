@@ -46,6 +46,17 @@ bool hasEmptyOrNull = fruits.AnyNullOrEmpty();
 // String utilities
 string[] trimmedFruits = { " apple ", "banana ", " cherry", " date " };
 trimmedFruits = trimmedFruits.TrimAll();
+fruitsWithValues = fruitsWithValues.RemoveNullOrEmpty();  // Removes empty and null values, resulting in { "apple", "cherry" }
+
+string[] fruitsWithSpaces = { "apple", "   ", "cherry", null };
+fruitsWithSpaces = fruitsWithSpaces.RemoveNullOrWhiteSpace();  // Removes whitespace-only and null values, resulting in { "apple", "cherry" }
+
+bool hasDuplicateFruits = fruits.HasDuplicates();  // Checks if there are any duplicate fruit names
+string fruitSentence = fruits.ConcatenateWithSeparator(", ");  // Joins all fruit names with a comma separator
+string[] fruitsWithPattern = fruits.FilterByPattern("^a.*");  // Filters fruits that start with the letter 'a'
+bool allOfLengthFive = fruits.AllOfLength(5);  // Checks if all fruit names have a length of 5
+string longestFruit = fruits.LongestString();  // Gets the longest fruit name
+string shortestFruit = fruits.ShortestString();  // Gets the shortest fruit name
 
 // DateTime utilities
 DateTime[] holidays = { new DateTime(2023, 12, 25), new DateTime(2023, 1, 1) };
