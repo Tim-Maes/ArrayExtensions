@@ -7,7 +7,7 @@ A collection of useful extension methods for arrays in C#.
 - **Basic Operations**: Easily `Add`, `Insert`, `Remove`, and `Replace` items.
 - **Array Manipulation**: `Shuffle`, `Rotate`, `Chunk`, `Flatten`, and `Resize` your arrays.
 - **Array Analysis**: Check if arrays are `AllEqual`, `AnyNull`, `IsEmpty`, or even find the `MostCommon` element.
-- **String Array Utilities**: Methods like `TrimAll`, `AnyNullOrEmpty`, and `ConcatenateWithSeparator`.
+- **String Array Utilities**: Methods like `TrimAll`, `AnyNullOrEmpty`, `ConcatenateWithSeparator` and filters.
 - **DateTime Array Utilities**: Filter by `Weekdays`, `Weekends`, `Holidays`, and more.
 - **Safe Operations**: Safely `Get`, `Set`, and `FindIndices` without worrying about out-of-range errors.
 - **Functional Programming**: Use `ForEach` to apply actions directly on array elements.
