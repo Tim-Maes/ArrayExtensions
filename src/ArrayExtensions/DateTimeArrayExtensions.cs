@@ -3,8 +3,11 @@
 public static class DateTimeArrayExtensions
 {
     /// <summary>
-    /// Gets the earliest date from the array.
+    /// Finds and returns the earliest date present in the array.
+    /// Throws an exception if the array is null or empty.
     /// </summary>
+    /// <param name="arr">The array of DateTime objects.</param>
+    /// <returns>The earliest DateTime object in the array.</returns>
     public static DateTime EarliestDate(this DateTime[] arr)
     {
         if (arr == null || arr.Length == 0)
@@ -14,8 +17,11 @@ public static class DateTimeArrayExtensions
     }
 
     /// <summary>
-    /// Gets the latest date from the array.
+    /// Finds and returns the latest date present in the array.
+    /// Throws an exception if the array is null or empty.
     /// </summary>
+    /// <param name="arr">The array of DateTime objects.</param>
+    /// <returns>The latest DateTime object in the array.</returns>
     public static DateTime LatestDate(this DateTime[] arr)
     {
         if (arr == null || arr.Length == 0)
@@ -119,37 +125,48 @@ public static class DateTimeArrayExtensions
     /// </summary>
     public static DateTime[] FilterWeekdays(this DateTime[] arr)
     {
-        if (arr == null)
+        if (arr is null)
             throw new ArgumentNullException(nameof(arr));
 
         return arr.Where(date => date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday).ToArray();
     }
 
     /// <summary>
-    /// Filters dates that are weekends.
+    /// Filters and returns an array of DateTime objects that fall on weekends (Saturday or Sunday).
+    /// Throws an ArgumentNullException if the array is null.
     /// </summary>
+    /// <param name="arr">The array of DateTime objects.</param>
+    /// <returns>An array of DateTime objects that are weekends.</returns>
     public static DateTime[] FilterWeekends(this DateTime[] arr)
     {
-        if (arr == null)
+        if (arr is null)
             throw new ArgumentNullException(nameof(arr));
 
         return arr.Where(date => date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday).ToArray();
     }
 
     /// <summary>
-    /// Groups dates by their DayOfWeek.
+    /// Groups the array of DateTime objects by their DayOfWeek and returns an array of groupings.
+    /// Each grouping contains DateTime objects that fall on the same DayOfWeek.
+    /// Throws an ArgumentNullException if the array is null.
     /// </summary>
+    /// <param name="arr">The array of DateTime objects.</param>
+    /// <returns>An array of groupings, where each grouping contains DateTime objects of the same DayOfWeek.</returns>
     public static IGrouping<DayOfWeek, DateTime>[] GroupByDayOfWeek(this DateTime[] arr)
     {
-        if (arr == null)
+        if (arr is null)
             throw new ArgumentNullException(nameof(arr));
 
         return arr.GroupBy(date => date.DayOfWeek).ToArray();
     }
 
     /// <summary>
-    /// Gets the dates that are holidays based on a provided list of holidays.
+    /// Filters and returns an array of DateTime objects that match the dates in a provided list of holidays.
+    /// Throws an ArgumentNullException if either the array or the list of holidays is null.
     /// </summary>
+    /// <param name="arr">The array of DateTime objects.</param>
+    /// <param name="holidays">The array of DateTime objects representing holidays.</param>
+    /// <returns>An array of DateTime objects that are holidays.</returns>
     public static DateTime[] FilterHolidays(this DateTime[] arr, DateTime[] holidays)
     {
         if (arr == null)
@@ -162,11 +179,15 @@ public static class DateTimeArrayExtensions
     }
 
     /// <summary>
-    /// Gets the number of business days between the earliest and latest date in the array.
+    /// Calculates and returns the number of business days between the earliest and latest date in the array.
+    /// A business day is defined as any day that is not a Saturday or Sunday.
+    /// Throws an exception if the array is null or empty.
     /// </summary>
+    /// <param name="arr">The array of DateTime objects.</param>
+    /// <returns>The number of business days between the earliest and latest date in the array.</returns>
     public static int BusinessDaysCount(this DateTime[] arr)
     {
-        if (arr == null || arr.Length == 0)
+        if (arr is null || arr.Length == 0)
             throw new ArgumentException("Array is null or empty.", nameof(arr));
 
         DateTime startDate = arr.EarliestDate();
@@ -188,12 +209,17 @@ public static class DateTimeArrayExtensions
     }
 
     /// <summary>
-    /// Returns the dates in the array that are the nth occurrence of a specific DayOfWeek in their respective months.
-    /// For example, all the second Tuesdays of their months.
+    /// Filters the array to only include DateTime objects that represent the nth occurrence of a specified day of the week within their respective months.
+    /// For example, this could return all DateTime objects that represent the second Tuesday of their respective months.
+    /// Throws an exception if the array is null or if n is not between 1 and 5.
     /// </summary>
+    /// <param name="arr">The array of DateTime objects.</param>
+    /// <param name="dayOfWeek">The specified DayOfWeek.</param>
+    /// <param name="n">The nth occurrence.</param>
+    /// <returns>An array of DateTime objects that meet the criteria.</returns>
     public static DateTime[] FilterNthDayOfWeek(this DateTime[] arr, DayOfWeek dayOfWeek, int n)
     {
-        if (arr == null)
+        if (arr is null)
             throw new ArgumentNullException(nameof(arr));
 
         if (n < 1 || n > 5)
@@ -215,8 +241,11 @@ public static class DateTimeArrayExtensions
     }
 
     /// <summary>
-    /// Returns the dates in the array that are equidistant from a specified reference date.
+    /// Finds and returns an array of DateTime objects that are equidistant from a given reference date.
     /// </summary>
+    /// <param name="arr">The array of DateTime objects.</param>
+    /// <param name="referenceDate">The reference DateTime object.</param>
+    /// <returns>An array of DateTime objects that are equidistant from the reference date.</returns>
     public static DateTime[] EquidistantDates(this DateTime[] arr, DateTime referenceDate)
     {
         if (arr == null)
