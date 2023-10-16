@@ -115,7 +115,7 @@ public static class ArrayExtensions
     /// <param name="defaultValue">The value to return if the index is out of range.</param>
     /// <returns>The element at the given index or the default value.</returns>
     public static T SafeGet<T>(this T[] arr, int index, T defaultValue = default)
-        => (index >= 0 && index < arr.Length) ? arr[index] : defaultValue;
+        => index >= 0 && index < arr.Length ? arr[index] : defaultValue;
 
     /// <summary>
     /// Finds the indices of all elements that match a given predicate.
@@ -343,7 +343,7 @@ public static class ArrayExtensions
     /// <param name="item">The item to count.</param>
     /// <returns>The number of occurrences of the item in the array.</returns>
     public static int CountOf<T>(this T[] arr, T item) where T : IEquatable<T>
-        =>  arr.Count(x => x.Equals(item));
+        => arr.Count(x => x.Equals(item));
 
     /// <summary>
     /// Returns distinct values from the array.
