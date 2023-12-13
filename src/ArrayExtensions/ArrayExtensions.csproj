@@ -11,12 +11,18 @@
     <RepositoryUrl>https://www.github.com/Tim-Maes/ArrayExtensions</RepositoryUrl>
     <PackageTags>array, extensions</PackageTags>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <Version>1.2.5</Version>
     <EnablePackageValidation>true</EnablePackageValidation>
       <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
