@@ -382,4 +382,120 @@ public static class ArrayExtensions
         int length = (end ?? arr.Length) - start;
         return arr.Skip(start).Take(length).ToArray();
     }
+
+    /// <summary>
+    /// Interleaves elements of two arrays into a single array. Elements from the two arrays alternate in the resulting array.
+    /// If one array is longer, the remaining elements are appended at the end.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the arrays.</typeparam>
+    /// <param name="arr1">The first array to interleave.</param>
+    /// <param name="arr2">The second array to interleave.</param>
+    /// <returns>A new array containing elements from both input arrays, interleaved.</returns>
+    public static T[] Interleave<T>(this T[] arr1, T[] arr2)
+    {
+        T[] result = new T[arr1.Length + arr2.Length];
+        int i = 0, j = 0, k = 0;
+
+        while (i < arr1.Length && j < arr2.Length)
+        {
+            result[k++] = arr1[i++];
+            result[k++] = arr2[j++];
+        }
+
+        while (i < arr1.Length)
+        {
+            result[k++] = arr1[i++];
+        }
+
+        while (j < arr2.Length)
+        {
+            result[k++] = arr2[j++];
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Splits an array into segments based on a specified predicate. Each time the predicate is true,
+    /// a new segment starts.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to segment.</param>
+    /// <param name="predicate">The predicate function to determine the start of a new segment.</param>
+    /// <returns>A list of arrays, where each array is a segment of the original array.</returns>
+    public static List<T[]> Segment<T>(this T[] arr, Predicate<T> predicate)
+    {
+        var result = new List<T[]>();
+        var segment = new List<T>();
+
+        foreach (var item in arr)
+        {
+            if (predicate(item))
+            {
+                if (segment.Any())
+                {
+                    result.Add(segment.ToArray());
+                    segment.Clear();
+                }
+            }
+            segment.Add(item);
+        }
+
+        if (segment.Any()) result.Add(segment.ToArray());
+
+        return result;
+    }
+
+    /// <summary>
+    /// Performs a binary search on a sorted array for a specific item, using a specified comparer.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The sorted array to search.</param>
+    /// <param name="item">The item to search for.</param>
+    /// <param name="comparer">The comparer to use for comparing elements.</param>
+    /// <returns>The index of the item in the array if found; otherwise, -1.</returns>
+    public static int BinarySearch<T>(this T[] arr, T item, IComparer<T> comparer)
+    {
+        int low = 0, high = arr.Length - 1;
+
+        while (low <= high)
+        {
+            int mid = low + (high - low) / 2;
+            int comparison = comparer.Compare(arr[mid], item);
+
+            if (comparison == 0) return mid;
+
+            if (comparison < 0) low = mid + 1;
+            else high = mid - 1;
+        }
+
+        return -1; // Item not found
+    }
+
+    /// <summary>
+    /// Selects a random sample of elements from the array.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to sample from.</param>
+    /// <param name="sampleSize">The number of elements to include in the sample.</param>
+    /// <returns>An array containing a random sample of elements from the original array.</returns>
+    public static T[] RandomSample<T>(this T[] arr, int sampleSize)
+    {
+        var random = new Random();
+        return arr.OrderBy(x => random.Next()).Take(sampleSize).ToArray();
+    }
+
+    /// <summary>
+    /// Generates a sequence of tuples from sequential pairs of elements in the array.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to generate pairs from.</param>
+    /// <returns>An enumerable sequence of tuples, where each tuple contains a pair of sequential elements from the array.</returns>
+    public static IEnumerable<Tuple<T, T>> SequentialPairs<T>(this T[] arr)
+    {
+        for (int i = 0; i < arr.Length - 1; i++)
+        {
+            yield return Tuple.Create(arr[i], arr[i + 1]);
+        }
+    }
 }
