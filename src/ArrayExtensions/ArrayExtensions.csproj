@@ -10,7 +10,6 @@
     <PackageProjectUrl>https://www.github.com/Tim-Maes/ArrayExtensions</PackageProjectUrl>
     <RepositoryUrl>https://www.github.com/Tim-Maes/ArrayExtensions</RepositoryUrl>
     <PackageTags>array, extensions</PackageTags>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <Version>1.2.5</Version>
     <EnablePackageValidation>true</EnablePackageValidation>
       <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
@@ -18,6 +17,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
