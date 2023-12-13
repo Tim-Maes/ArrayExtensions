@@ -1,4 +1,6 @@
-﻿namespace ArrayExtensions;
+﻿using System.Text.RegularExpressions;
+
+namespace ArrayExtensions;
 
 public static class StringArrayExtensions
 {
@@ -135,4 +137,90 @@ public static class StringArrayExtensions
     /// <returns>The shortest string.</returns>
     public static string ShortestString(this string[] arr)
         => arr.OrderBy(s => s.Length).FirstOrDefault();
+
+    /// <summary>
+    /// Sorts the array of strings in alphabetical order.
+    /// </summary>
+    /// <param name="arr">The array to sort.</param>
+    /// <returns>An array of strings sorted alphabetically.</returns>
+    public static string[] SortAlphabetically(this string[] arr)
+        => arr.OrderBy(s => s).ToArray();
+
+    /// <summary>
+    /// Checks if any of the strings in the array contains a specified substring.
+    /// </summary>
+    /// <param name="arr">The array to check.</param>
+    /// <param name="substring">The substring to check for.</param>
+    /// <returns>True if any string contains the specified substring.</returns>
+    public static bool ContainsSubstring(this string[] arr, string substring)
+        => arr.Any(s => s.Contains(substring));
+
+    /// <summary>
+    /// Checks if any of the strings in the array starts with a specified substring.
+    /// </summary>
+    /// <param name="arr">The array to check.</param>
+    /// <param name="substring">The substring to check for.</param>
+    /// <returns>True if any string starts with the specified substring.</returns>
+    public static bool StartsWithSubstring(this string[] arr, string substring)
+        => arr.Any(s => s.StartsWith(substring));
+
+    /// <summary>
+    /// Checks if any of the strings in the array ends with a specified substring.
+    /// </summary>
+    /// <param name="arr">The array to check.</param>
+    /// <param name="substring">The substring to check for.</param>
+    /// <returns>True if any string ends with the specified substring.</returns>
+    public static bool EndsWithSubstring(this string[] arr, string substring)
+        => arr.Any(s => s.EndsWith(substring));
+
+    /// <summary>
+    /// Concatenates non-empty strings in the array with a given separator.
+    /// </summary>
+    /// <param name="arr">The array to concatenate.</param>
+    /// <param name="separator">The separator to use.</param>
+    /// <returns>A concatenated string from non-empty array elements.</returns>
+    public static string JoinNonEmpty(this string[] arr, string separator)
+        => string.Join(separator, arr.Where(s => !string.IsNullOrEmpty(s)));
+
+    /// <summary>
+    /// Counts the number of strings that match a regular expression pattern.
+    /// </summary>
+    /// <param name="arr">The array to check.</param>
+    /// <param name="pattern">The regular expression pattern.</param>
+    /// <returns>The count of strings matching the pattern.</returns>
+    public static int CountStringsMatchingPattern(this string[] arr, string pattern)
+        => arr.Count(s => Regex.IsMatch(s, pattern));
+
+    /// <summary>
+    /// Replaces multiple consecutive whitespace characters in each string with a single space.
+    /// </summary>
+    /// <param name="arr">The array to normalize whitespace.</param>
+    /// <returns>An array with normalized whitespace in each string.</returns>
+    public static string[] NormalizeWhitespace(this string[] arr)
+        => arr.Select(s => Regex.Replace(s, @"\s+", " ")).ToArray();
+
+    /// <summary>
+    /// Capitalizes the first letter of each string in the array.
+    /// </summary>
+    /// <param name="arr">The array to modify.</param>
+    /// <returns>An array with the first letter of each string capitalized.</returns>
+    public static string[] CapitalizeFirstLetter(this string[] arr)
+        => arr.Select(s => char.ToUpper(s[0]) + s.Substring(1).ToLower()).ToArray();
+
+    /// <summary>
+    /// Returns an array of unique strings, removing duplicates.
+    /// </summary>
+    /// <param name="arr">The array to process.</param>
+    /// <returns>An array of unique strings.</returns>
+    public static string[] UniqueStrings(this string[] arr)
+        => arr.Distinct().ToArray();
+
+    /// <summary>
+    /// Aggregates the array into a single string using a specified function.
+    /// </summary>
+    /// <param name="arr">The array to aggregate.</param>
+    /// <param name="aggregator">The function to aggregate the strings.</param>
+    /// <returns>A single string resulting from the aggregation of the array elements.</returns>
+    public static string AggregateStrings(this string[] arr, Func<string, string, string> aggregator)
+        => arr.Aggregate(aggregator);
 }
