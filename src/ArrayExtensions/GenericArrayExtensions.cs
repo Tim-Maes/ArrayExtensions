@@ -1,6 +1,6 @@
 ﻿namespace ArrayExtensions;
 
-public static class ArrayExtensions
+public static class GenericArrayExtensions
 {
     /// <summary>
     /// Removes all null items from the array.
