@@ -1,4 +1,4 @@
-# ArrayExtensions :chains:
+# ArrayExtensions
 
 A collection of extension methods for arrays in C#. 
 
