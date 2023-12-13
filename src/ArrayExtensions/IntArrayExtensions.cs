@@ -78,24 +78,6 @@ public static class IntArrayExtensions
         => arr.GroupBy(n => n).OrderByDescending(g => g.Count()).Select(g => g.Key);
 
     /// <summary>
-    /// Calculates the Greatest Common Divisor of all array elements.
-    /// </summary>
-    /// <param name="arr">The array to process.</param>
-    /// <returns>The greatest common divisor of the array elements.</returns>
-    public static int GCD(this int[] arr)
-        => arr.Aggregate((x, y) => GCD(x, y));
-    private static int GCD(int a, int b)
-        => b == 0 ? a : GCD(b, a % b);
-
-    /// <summary>
-    /// Finds the Least Common Multiple of all array elements.
-    /// </summary>
-    /// <param name="arr">The array to process.</param>
-    /// <returns>The least common multiple of the array elements.</returns>
-    public static long LCM(this int[] arr)
-        => arr.Aggregate(1L, (a, b) => a * b / GCD(a, b));
-
-    /// <summary>
     /// Finds the percentile value in the array.
     /// </summary>
     /// <param name="arr">The array to process.</param>

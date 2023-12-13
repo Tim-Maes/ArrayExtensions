@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://www.github.com/Tim-Maes/ArrayExtensions</PackageProjectUrl>
     <RepositoryUrl>https://www.github.com/Tim-Maes/ArrayExtensions</RepositoryUrl>
     <PackageTags>array, extensions</PackageTags>
-    <Version>1.2.6</Version>
+    <Version>1.2.7</Version>
     <EnablePackageValidation>true</EnablePackageValidation>
       <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>

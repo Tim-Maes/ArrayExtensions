@@ -109,10 +109,8 @@ Or just copy whatever you need from this repository :)
 |-----------------------------------|---------------------------------------------------|
 |`AverageIgnoringZero`| Calculates the average of the elements in the array, ignoring zero values.|
 |`FindPrimeNumbers`| Filters the array to include only prime numbers.|
-|`GCD`| Calculates the Greatest Common Divisor of all array elements.|
 |`IsMonotonicallyIncreasing`| Checks if the array's elements are in a strictly increasing order. |
 |`IsMonotonicallyDecreasing`| Checks if the array's elements are in a strictly decreasing order.|
-|`LCM`| Finds the Least Common Multiple of all array elements.|
 |`MultiplyAll`| Multiplies all elements in the array and returns the product.|
 |`Mode`| Finds the most frequently occurring number(s) in the array.|
 |`Percentile`| Finds the percentile value in the array.|
