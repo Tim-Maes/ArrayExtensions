@@ -18,7 +18,7 @@ Or just copy whatever you need from this repository :)
 
 |Name                               | Description                                       |
 |-----------------------------------|---------------------------------------------------|
-|`Add<T>()` and `AddRange<T>()` | Appends single or multiple items to the end of an array.|
+|`Add<T>()`, `AddRange<T>()` | Appends single or multiple items to the end of an array.|
 |`AllEqual<T>()`| Checks if all elements in an array are identical.|
 |`AnyNull<T>()`| Determines if any element in an array of reference types is null.|
 |`BinarySearch<T>()`| Performs a binary search on a sorted array.|
@@ -30,7 +30,7 @@ Or just copy whatever you need from this repository :)
 |`FindIndices<T>()`| Finds indices of all elements that match a given predicate.|
 |`Flatten<T>()`| Flattens a multi-dimensional array into a single-dimensional array.|
 |`ForEach<T>()`| Executes an action on each element of an array.|
-|`IsEmpty<T>()` and `IsNullOrEmpty<T>()`| Check if an array is empty or null/empty, respectively.|
+|`IsEmpty<T>()`, `IsNullOrEmpty<T>()`| Check if an array is empty or null/empty, respectively.|
 |`Interleave<T>()`| Interleaves elements of two arrays into a single array.|
 |`InsertAt<T>()`| Inserts an element at a specified index.|
 |`Shuffle<T>()`| Randomly shuffles the elements of an array.|
@@ -41,7 +41,7 @@ Or just copy whatever you need from this repository :)
 |`RemoveAt<T>()`| Removes the element at a specified index.|
 |`ReplaceAll<T>()`| Replaces all occurrences of a specific value with another in the array.|
 |`Resize<T>()`| Resizes an array to a specified new size.|
-|`RotateLeft<T>()` and `RotateRight<T>()`| Rotates the array left or right by a specified number of positions.|
+|`RotateLeft<T>()`, `RotateRight<T>()`| Rotates the array left or right by a specified number of positions.|
 |`SafeGet<T>()`| Retrieves an element at a specified index or a default value if out of range.|
 |`SafeSet<T>()`| Sets a value at a specified index, resizing the array if necessary.|
 |`Segment<T>()`| Splits an array into segments based on a predicate.|
@@ -70,8 +70,7 @@ Or just copy whatever you need from this repository :)
 |`GroupByDayOfWeek`| Groups dates by their day of the week.|
 |`GroupByMonth`| Groups dates by month.|
 |`GroupByYear`| Groups dates by year.|
-
-`LatestDate`: Finds and returns the latest date present in the array.
+|`LatestDate`| Finds and returns the latest date present in the array.|
 
 ### String Array methods
 
