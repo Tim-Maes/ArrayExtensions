@@ -1,6 +1,6 @@
 # ArrayExtensions
 
-A collection of extension methods for arrays in C#. 
+A comprehensive collection of extension methods for arrays in C#.
 
 ## Installation :wrench: 
 
