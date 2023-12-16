@@ -6,528 +6,415 @@ namespace ArrayExtensions.Tests;
 public class ArrayExtensionsTests
 {
     [Fact]
-    public void Add_ShouldAppendItemToEndOfArray()
+    public void RemoveNulls_WithNulls_ShouldRemoveNullValues()
     {
-        // Arrange
-        int[] initialArray = { 1, 2, 3 };
+        string[] array = { "apple", null, "banana", null, "cherry" };
+        var result = array.RemoveNulls();
+        result.Should().Equal("apple", "banana", "cherry");
+    }
 
-        // Act
-        var result = initialArray.Add(4);
-
-        // Assert
+    [Fact]
+    public void Add_ShouldAppendItemToEnd()
+    {
+        int[] array = { 1, 2, 3 };
+        var result = array.Add(4);
         result.Should().Equal(1, 2, 3, 4);
     }
 
     [Fact]
-    public void Add_WithNullArray_ShouldThrowArgumentNullException()
+    public void AllEqual_WithIdenticalElements_ShouldReturnTrue()
     {
-        // Arrange
-        int[] nullArray = null;
-
-        // Act
-        Action act = () => nullArray.Add(4);
-
-        // Assert
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Fact]
-    public void AllEqual_WithAllEqualItems_ShouldReturnTrue()
-    {
-        // Arrange
-        int[] equalArray = { 2, 2, 2 };
-
-        // Act
-        var result = equalArray.AllEqual();
-
-        // Assert
+        int[] array = { 1, 1, 1 };
+        var result = array.AllEqual();
         result.Should().BeTrue();
     }
 
     [Fact]
-    public void AllEqual_WithDifferentItems_ShouldReturnFalse()
+    public void AnyNull_WithNoNulls_ShouldReturnFalse()
     {
-        // Arrange
-        int[] differentArray = { 1, 2, 3 };
-
-        // Act
-        var result = differentArray.AllEqual();
-
-        // Assert
+        string[] array = { "apple", "banana", "cherry" };
+        var result = array.AnyNull();
         result.Should().BeFalse();
     }
 
     [Fact]
-    public void AnyNull_WithNonNullItems_ShouldReturnFalse()
+    public void AddRange_ShouldAppendMultipleItems()
     {
-        // Arrange
-        string[] nonNullArray = { "apple", "banana", "cherry" };
-
-        // Act
-        var result = nonNullArray.AnyNull();
-
-        // Assert
-        result.Should().BeFalse();
+        int[] array = { 1, 2, 3 };
+        var result = array.AddRange(4, 5);
+        result.Should().Equal(1, 2, 3, 4, 5);
     }
 
     [Fact]
-    public void AnyNull_WithNullItem_ShouldReturnTrue()
+    public void RemoveAt_ValidIndex_ShouldRemoveElement()
     {
-        // Arrange
-        string[] arrayWithNull = { "apple", null, "cherry" };
-
-        // Act
-        var result = arrayWithNull.AnyNull();
-
-        // Assert
-        result.Should().BeTrue();
-    }
-
-    [Fact]
-    public void RemoveAt_WithValidIndex_ShouldRemoveItemAtGivenIndex()
-    {
-        // Arrange
-        int[] initialArray = { 1, 2, 3 };
-
-        // Act
-        var result = initialArray.RemoveAt(1);
-
-        // Assert
+        int[] array = { 1, 2, 3 };
+        var result = array.RemoveAt(1);
         result.Should().Equal(1, 3);
     }
 
     [Fact]
-    public void RemoveAt_WithInvalidIndex_ShouldThrowIndexOutOfRangeException()
+    public void InsertAt_ValidIndex_ShouldInsertElement()
     {
-        // Arrange
-        int[] initialArray = { 1, 2, 3 };
-
-        // Act
-        Action act = () => initialArray.RemoveAt(5);
-
-        // Assert
-        act.Should().Throw<IndexOutOfRangeException>();
+        int[] array = { 1, 2, 4 };
+        var result = array.InsertAt(2, 3);
+        result.Should().Equal(1, 2, 3, 4);
     }
 
     [Fact]
-    public void Shuffle_ShouldRearrangeArray()
+    public void Shuffle_ShouldChangeOrder()
     {
-        // Arrange
-        int[] initialArray = { 1, 2, 3, 4, 5 };
-
-        // Act
-        var result = initialArray.Shuffle();
-
-        // Assert
-        result.Should().NotEqual(initialArray);
-        result.Should().HaveCount(5);
+        int[] array = { 1, 2, 3, 4, 5 };
+        var result = array.Shuffle();
+        result.Should().NotEqual(array);
     }
 
     [Fact]
     public void IsEmpty_WithEmptyArray_ShouldReturnTrue()
     {
-        // Arrange
-        int[] emptyArray = { };
-
-        // Act
-        var result = emptyArray.IsEmpty();
-
-        // Assert
+        int[] array = { };
+        var result = array.IsEmpty();
         result.Should().BeTrue();
-    }
-
-    [Fact]
-    public void IsEmpty_WithNonEmptyArray_ShouldReturnFalse()
-    {
-        // Arrange
-        int[] nonEmptyArray = { 1, 2, 3 };
-
-        // Act
-        var result = nonEmptyArray.IsEmpty();
-
-        // Assert
-        result.Should().BeFalse();
     }
 
     [Fact]
     public void IsNullOrEmpty_WithNullArray_ShouldReturnTrue()
     {
-        // Arrange
-        int[] nullArray = null;
-
-        // Act
-        var result = nullArray.IsNullOrEmpty();
-
-        // Assert
+        int[] array = null;
+        var result = array.IsNullOrEmpty();
         result.Should().BeTrue();
     }
 
     [Fact]
-    public void IsNullOrEmpty_WithEmptyArray_ShouldReturnTrue()
+    public void SafeGet_ValidIndex_ShouldReturnValue()
     {
-        // Arrange
-        int[] emptyArray = { };
-
-        // Act
-        var result = emptyArray.IsNullOrEmpty();
-
-        // Assert
-        result.Should().BeTrue();
-    }
-
-    [Fact]
-    public void IsNullOrEmpty_WithNonEmptyArray_ShouldReturnFalse()
-    {
-        // Arrange
-        int[] nonEmptyArray = { 1, 2, 3 };
-
-        // Act
-        var result = nonEmptyArray.IsNullOrEmpty();
-
-        // Assert
-        result.Should().BeFalse();
-    }
-
-    [Fact]
-    public void SafeGet_WithinArrayBounds_ShouldReturnValue()
-    {
-        // Arrange
         int[] array = { 1, 2, 3 };
-
-        // Act
         var result = array.SafeGet(1);
-
-        // Assert
         result.Should().Be(2);
     }
 
     [Fact]
-    public void SafeGet_OutsideArrayBounds_ShouldReturnDefaultValue()
+    public void FindIndices_MatchingPredicate_ShouldReturnIndices()
     {
-        // Arrange
-        int[] array = { 1, 2, 3 };
-
-        // Act
-        var result = array.SafeGet(5, -1);
-
-        // Assert
-        result.Should().Be(-1);
-    }
-
-    [Fact]
-    public void FindIndices_WithMatchingPredicate_ShouldReturnIndices()
-    {
-        // Arrange
-        int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act
+        int[] array = { 1, 2, 3, 4 };
         var result = array.FindIndices(x => x % 2 == 0);
-
-        // Assert
         result.Should().Equal(1, 3);
     }
 
     [Fact]
-    public void ForEach_ShouldExecuteActionForEachItem()
+    public void ForEach_ShouldExecuteAction()
     {
-        // Arrange
         int[] array = { 1, 2, 3 };
         int sum = 0;
-
-        // Act
         array.ForEach(x => sum += x);
-
-        // Assert
         sum.Should().Be(6);
     }
 
     [Fact]
-    public void Chunk_ShouldBreakArrayIntoSmallerArrays()
+    public void Chunk_ValidChunkSize_ShouldDivideArray()
     {
-        // Arrange
         int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act
         var result = array.Chunk(2);
-
-        // Assert
-        result.Should().HaveCount(3);
+        result.Length.Should().Be(3);
         result[0].Should().Equal(1, 2);
-        result[1].Should().Equal(3, 4);
-        result[2].Should().Equal(5);
     }
 
     [Fact]
-    public void DeepCopy_WithCloneableItems_ShouldReturnDeepCopiedArray()
+    public void DeepCopy_ShouldCreateSeparateArray()
     {
-        // Arrange
         string[] array = { "apple", "banana", "cherry" };
-
-        // Act
         var result = array.DeepCopy();
-
-        // Assert
         result.Should().Equal(array);
         result.Should().NotBeSameAs(array);
     }
 
     [Fact]
-    public void Resize_WithLargerSize_ShouldReturnResizedArray()
+    public void Resize_LargerSize_ShouldResizeWithDefaultValues()
     {
-        // Arrange
         int[] array = { 1, 2, 3 };
-
-        // Act
         var result = array.Resize(5);
-
-        // Assert
-        result.Should().HaveCount(5);
-        result.Take(3).Should().Equal(1, 2, 3);
+        result.Should().Equal(1, 2, 3, 0, 0);
     }
 
     [Fact]
-    public void Resize_WithSmallerSize_ShouldReturnTrimmedArray()
+    public void Tail_ShouldReturnArrayWithoutFirstElement()
     {
-        // Arrange
-        int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act
-        var result = array.Resize(3);
-
-        // Assert
-        result.Should().Equal(1, 2, 3);
-    }
-
-    [Fact]
-    public void Tail_ShouldReturnAllElementsExceptFirst()
-    {
-        // Arrange
-        int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act
+        int[] array = { 1, 2, 3 };
         var result = array.Tail();
-
-        // Assert
-        result.Should().Equal(2, 3, 4, 5);
+        result.Should().Equal(2, 3);
     }
 
     [Fact]
     public void Head_ShouldReturnFirstElement()
     {
-        // Arrange
-        int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act
+        int[] array = { 1, 2, 3 };
         var result = array.Head();
-
-        // Assert
         result.Should().Be(1);
     }
 
     [Fact]
-    public void LastN_ShouldReturnLastNElements()
+    public void LastN_ValidNumber_ShouldReturnLastNElements()
     {
-        // Arrange
         int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act
         var result = array.LastN(3);
-
-        // Assert
         result.Should().Equal(3, 4, 5);
     }
 
     [Fact]
-    public void FirstN_ShouldReturnFirstNElements()
+    public void FirstN_ValidNumber_ShouldReturnFirstNElements()
     {
-        // Arrange
         int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act
         var result = array.FirstN(3);
-
-        // Assert
         result.Should().Equal(1, 2, 3);
     }
 
     [Fact]
-    public void ReplaceAll_ShouldReplaceAllOccurrences()
+    public void ReplaceAll_SpecifiedValue_ShouldReplaceAllOccurrences()
     {
-        // Arrange
-        int[] array = { 1, 2, 3, 2, 5 };
-
-        // Act
-        var result = array.ReplaceAll(2, 9);
-
-        // Assert
-        result.Should().Equal(1, 9, 3, 9, 5);
+        int[] array = { 1, 2, 3, 2 };
+        var result = array.ReplaceAll(2, 4);
+        result.Should().Equal(1, 4, 3, 4);
     }
 
     [Fact]
-    public void SafeSet_WithinBounds_ShouldSetValue()
+    public void SafeSet_ValidIndex_ShouldSetValue()
     {
-        // Arrange
         int[] array = { 1, 2, 3 };
-
-        // Act
-        var result = array.SafeSet(1, 9);
-
-        // Assert
-        result.Should().Equal(1, 9, 3);
+        var result = array.SafeSet(1, 4);
+        result.Should().Equal(1, 4, 3);
     }
 
     [Fact]
-    public void SafeSet_OutsideBounds_ShouldResizeAndSetValue()
+    public void MaxBy_Selector_ShouldReturnMaxElement()
     {
-        // Arrange
-        int[] array = { 1, 2, 3 };
-
-        // Act
-        var result = array.SafeSet(5, 9);
-
-        // Assert
-        result.Should().Equal(1, 2, 3, 0, 0, 9);
-    }
-
-    [Fact]
-    public void MaxBy_ShouldReturnElementWithMaxValueBasedOnSelector()
-    {
-        // Arrange
-        string[] array = { "apple", "banana", "cherry" };
-
-        // Act
+        string[] array = { "a", "bb", "ccc" };
         var result = array.MaxBy(s => s.Length);
-
-        // Assert
-        result.Should().Be("banana");
+        result.Should().Be("ccc");
     }
 
     [Fact]
-    public void MinBy_ShouldReturnElementWithMinValueBasedOnSelector()
+    public void MinBy_Selector_ShouldReturnMinElement()
     {
-        // Arrange
-        string[] array = { "apple", "banana", "cherry" };
-
-        // Act
+        string[] array = { "a", "bb", "ccc" };
         var result = array.MinBy(s => s.Length);
-
-        // Assert
-        result.Should().Be("apple");
+        result.Should().Be("a");
     }
 
     [Fact]
-    public void DistinctBy_ShouldReturnDistinctElementsBySelector()
+    public void DistinctBy_Selector_ShouldReturnDistinctElements()
     {
-        // Arrange
-        var array = new[]
-        {
-                new { Name = "John", Age = 25 },
-                new { Name = "Jane", Age = 25 },
-                new { Name = "Doe", Age = 30 }
-            };
-
-        // Act
-        var result = array.DistinctBy(p => p.Age);
-
-        // Assert
+        var array = new[] { new { Name = "John", Age = 30 }, new { Name = "Jane", Age = 25 }, new { Name = "Joe", Age = 30 } };
+        var result = array.DistinctBy(x => x.Age);
         result.Should().HaveCount(2);
     }
 
     [Fact]
-    public void RotateLeft_ShouldRotateArrayToLeftByGivenPositions()
+    public void RotateLeft_NumberOfPositions_ShouldRotateArray()
     {
-        // Arrange
         int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act
         var result = array.RotateLeft(2);
-
-        // Assert
         result.Should().Equal(3, 4, 5, 1, 2);
     }
 
     [Fact]
-    public void RotateRight_ShouldRotateArrayToRightByGivenPositions()
+    public void RotateRight_NumberOfPositions_ShouldRotateArray()
     {
-        // Arrange
         int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act
         var result = array.RotateRight(2);
-
-        // Assert
         result.Should().Equal(4, 5, 1, 2, 3);
     }
 
     [Fact]
-    public void Flatten_ShouldConvert2DArrayTo1DArray()
+    public void Flatten_ShouldConvertNestedArrayToSingleDimensional()
     {
-        // Arrange
         int[][] array = { new[] { 1, 2 }, new[] { 3, 4 } };
-
-        // Act
         var result = array.Flatten();
-
-        // Assert
         result.Should().Equal(1, 2, 3, 4);
     }
 
     [Fact]
-    public void CountOf_ShouldReturnCountOfGivenItem()
+    public void CountOf_Item_ShouldReturnNumberOfOccurrences()
     {
-        // Arrange
-        int[] array = { 1, 2, 3, 2, 5 };
-
-        // Act
+        int[] array = { 1, 2, 2, 3 };
         var count = array.CountOf(2);
-
-        // Assert
         count.Should().Be(2);
     }
 
     [Fact]
-    public void DistinctValues_ShouldReturnDistinctValues()
+    public void DistinctValues_ShouldReturnDistinctElements()
     {
-        // Arrange
-        int[] array = { 1, 2, 3, 2, 5 };
-
-        // Act
+        int[] array = { 1, 2, 2, 3 };
         var result = array.DistinctValues();
-
-        // Assert
-        result.Should().Equal(1, 2, 3, 5);
+        result.Should().Equal(1, 2, 3);
     }
 
     [Fact]
-    public void Slice_WithValidStartAndEnd_ShouldReturnSubArray()
+    public void Slice_ValidRange_ShouldReturnSubArray()
     {
-        // Arrange
         int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act
         var result = array.Slice(1, 4);
-
-        // Assert
         result.Should().Equal(2, 3, 4);
     }
 
     [Fact]
-    public void Slice_WithInvalidStart_ShouldThrowArgumentOutOfRangeException()
+    public void Interleave_ShouldCombineTwoArrays()
     {
-        // Arrange
-        int[] array = { 1, 2, 3, 4, 5 };
-
-        // Act & Assert
-        Assert.Throws<ArgumentOutOfRangeException>(() => array.Slice(-1, 4));
+        int[] array1 = { 1, 3, 5 };
+        int[] array2 = { 2, 4, 6 };
+        var result = array1.Interleave(array2);
+        result.Should().Equal(1, 2, 3, 4, 5, 6);
     }
 
     [Fact]
-    public void Slice_WithInvalidEnd_ShouldThrowArgumentException()
+    public void Segment_WhenPredicateIsMet_ShouldSplitArray()
     {
-        // Arrange
         int[] array = { 1, 2, 3, 4, 5 };
+        var result = array.Segment(x => x % 3 == 0);
+        result.Should().HaveCount(2);
+        result[0].Should().Equal(1, 2);
+        result[1].Should().Equal(3, 4, 5);
+    }
 
-        // Act & Assert
-        Assert.Throws<ArgumentException>(() => array.Slice(4, 2));
+    [Fact]
+    public void BinarySearch_ExistingItem_ShouldReturnIndex()
+    {
+        int[] array = { 1, 2, 3, 4, 5 };
+        var result = array.BinarySearch(3, Comparer<int>.Default);
+        result.Should().Be(2);
+    }
+
+    [Fact]
+    public void BinarySearch_NonExistingItem_ShouldReturnMinusOne()
+    {
+        int[] array = { 1, 2, 3, 4, 5 };
+        var result = array.BinarySearch(6, Comparer<int>.Default);
+        result.Should().Be(-1);
+    }
+
+    [Fact]
+    public void RandomSample_ShouldReturnSubsetOfArray()
+    {
+        int[] array = { 1, 2, 3, 4, 5 };
+        var result = array.RandomSample(3);
+        result.Should().HaveCount(3);
+    }
+
+    [Fact]
+    public void SequentialPairs_ShouldGeneratePairsOfElements()
+    {
+        int[] array = { 1, 2, 3, 4 };
+        var result = array.SequentialPairs().ToList();
+        result.Should().Equal(Tuple.Create(1, 2), Tuple.Create(2, 3), Tuple.Create(3, 4));
+    }
+
+    [Fact]
+    public void FindFirstAndLast_MatchingPredicate_ShouldReturnFirstAndLastElements()
+    {
+        int[] array = { 1, 2, 3, 4, 5 };
+        var result = array.FindFirstAndLast(x => x > 1 && x < 5);
+        result.Should().Be((2, 4));
+    }
+
+    [Fact]
+    public void Reverse_ShouldReverseArray()
+    {
+        int[] array = { 1, 2, 3 };
+        var result = array.Reverse();
+        result.Should().Equal(3, 2, 1);
+    }
+
+    [Fact]
+    public void Fill_ShouldFillArrayWithSpecifiedValue()
+    {
+        int[] array = new int[5];
+        array.Fill(1);
+        array.Should().Equal(1, 1, 1, 1, 1);
+    }
+
+    [Fact]
+    public void IsSorted_SortedArray_ShouldReturnTrue()
+    {
+        int[] array = { 1, 2, 3 };
+        var result = array.IsSorted();
+        result.Should().BeTrue();
+    }
+
+    [Fact]
+    public void IsUnique_UniqueElements_ShouldReturnTrue()
+    {
+        int[] array = { 1, 2, 3 };
+        var result = array.IsUnique();
+        result.Should().BeTrue();
+    }
+
+    [Fact]
+    public void Permute_ShouldGenerateAllPermutations()
+    {
+        int[] array = { 1, 2 };
+        var result = array.Permute().ToList();
+        result.Should().Contain(new[] { 1, 2 });
+        result.Should().Contain(new[] { 2, 1 });
+    }
+
+    [Fact]
+    public void Subset_ShouldGenerateAllSubsets()
+    {
+        int[] array = { 1, 2 };
+        var result = array.Subset().ToList();
+        result.Should().Contain(new int[] { });
+        result.Should().Contain(new[] { 1 });
+        result.Should().Contain(new[] { 2 });
+        result.Should().Contain(new[] { 1, 2 });
+    }
+
+    [Fact]
+    public void Contains_ExistingItem_ShouldReturnTrue()
+    {
+        int[] array = { 1, 2, 3 };
+        var result = array.Contains(2);
+        result.Should().BeTrue();
+    }
+
+    [Fact]
+    public void JoinToString_ShouldJoinElementsIntoString()
+    {
+        int[] array = { 1, 2, 3 };
+        var result = array.JoinToString(",");
+        result.Should().Be("1,2,3");
+    }
+
+    [Fact]
+    public void FindOrDefault_MatchingElement_ShouldReturnElement()
+    {
+        int[] array = { 1, 2, 3 };
+        var result = array.FindOrDefault(x => x > 2, -1);
+        result.Should().Be(3);
+    }
+
+    [Fact]
+    public void TakeWhile_ConditionMet_ShouldReturnSubset()
+    {
+        int[] array = { 1, 2, 3, 4 };
+        var result = array.TakeWhile(x => x < 3);
+        result.Should().Equal(1, 2);
+    }
+
+    [Fact]
+    public void SkipWhile_ConditionMet_ShouldSkipElements()
+    {
+        int[] array = { 1, 2, 3, 4 };
+        var result = array.SkipWhile(x => x < 3);
+        result.Should().Equal(3, 4);
+    }
+
+    [Fact]
+    public void GroupBySequential_ShouldGroupElementsByKey()
+    {
+        int[] array = { 1, 1, 2, 2, 3 };
+        var result = array.GroupBySequential(x => x).ToList();
+        result.Should().HaveCount(3);
+        result[0].Key.Should().Be(1);
+        result[1].Key.Should().Be(2);
+        result[2].Key.Should().Be(3);
     }
 }

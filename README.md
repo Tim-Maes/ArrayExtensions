@@ -12,42 +12,63 @@ Install-Package ArrayExtensions
 
 Or just copy whatever you need from this repository :) 
 
+## Usage
+
+`var result = array.MethodName();`
+
 ## Features :star:
 
 ### Generic Array methods
 
-|Name                               | Description                                       |
-|-----------------------------------|---------------------------------------------------|
-|`Add<T>()`, `AddRange<T>()` | Appends single or multiple items to the end of an array.|
-|`AllEqual<T>()`| Checks if all elements in an array are identical.|
-|`AnyNull<T>()`| Determines if any element in an array of reference types is null.|
-|`BinarySearch<T>()`| Performs a binary search on a sorted array.|
-|`CountOf<T>()`| Counts occurrences of a specific item in the array.|
-|`Chunk<T>()`| Divides an array into smaller arrays of a specified maximum size.|
-|`DeepCopy<T>()`| Creates a deep copy of an array, where elements implement ICloneable.|
-|`DistinctBy<T, TKey>()`| Returns distinct elements based on a specified selector function.|
-|`DistinctValues<T>()`| Returns distinct values from the array.|
-|`FindIndices<T>()`| Finds indices of all elements that match a given predicate.|
-|`Flatten<T>()`| Flattens a multi-dimensional array into a single-dimensional array.|
-|`ForEach<T>()`| Executes an action on each element of an array.|
-|`IsEmpty<T>()`, `IsNullOrEmpty<T>()`| Check if an array is empty or null/empty, respectively.|
-|`Interleave<T>()`| Interleaves elements of two arrays into a single array.|
-|`InsertAt<T>()`| Inserts an element at a specified index.|
-|`Shuffle<T>()`| Randomly shuffles the elements of an array.|
-|`MostCommon<T>()`| Finds the most common element in the array.|
-|`MaxBy<T, TKey>() and MinBy<T, TKey>()`| Finds the maximum/minimum element based on a specified selector function.|
-|`RandomSample<T>()`| Selects a random sample of elements.|
-|`RemoveNulls<T>()`| Removes all null items from an array of reference types.|
-|`RemoveAt<T>()`| Removes the element at a specified index.|
-|`ReplaceAll<T>()`| Replaces all occurrences of a specific value with another in the array.|
-|`Resize<T>()`| Resizes an array to a specified new size.|
-|`RotateLeft<T>()`, `RotateRight<T>()`| Rotates the array left or right by a specified number of positions.|
-|`SafeGet<T>()`| Retrieves an element at a specified index or a default value if out of range.|
-|`SafeSet<T>()`| Sets a value at a specified index, resizing the array if necessary.|
-|`Segment<T>()`| Splits an array into segments based on a predicate.|
-|`SequentialPairs<T>()`| Generates a sequence of tuples from sequential pairs of elements.|
-|`Slice<T>()`| Returns a portion of the array, similar to substring for strings.|
-|`Tail<T>()`, `Head<T>()`, `LastN<T>()`, `FirstN<T>()`| Provide various ways to slice and access elements.|
+| Name                                              | Description                                                               |
+|---------------------------------------------------|---------------------------------------------------------------------------|
+| `Add<T>()`, `AddRange<T>()`                       | Appends single or multiple items to the end of an array.                  |
+| `AllEqual<T>()`                                   | Checks if all elements in an array are identical.                         |
+| `AnyNull<T>()`                                    | Determines if any element in an array of reference types is null.         |
+| `BinarySearch<T>()`                               | Performs a binary search on a sorted array.                               |
+| `Chunk<T>()`                                      | Divides an array into smaller arrays of a specified maximum size.         |
+| `Contains<T>()`                                   | Checks if the array contains a specified element.                         |
+| `CountOf<T>()`                                    | Counts occurrences of a specific item in the array.                       |
+| `DeepCopy<T>()`                                   | Creates a deep copy of an array, where elements implement ICloneable.     |
+| `DistinctBy<T, TKey>()`                           | Returns distinct elements based on a specified selector function.         |
+| `DistinctValues<T>()`                             | Returns distinct values from the array.                                   |
+| `FindFirstAndLast<T>()`                           | Finds the first and last elements that match a given predicate.           |
+| `FindIndices<T>()`                                | Finds indices of all elements that match a given predicate.               |
+| `FindOrDefault<T>()`                              | Finds an element matching a predicate, or returns a default value.        |
+| `Flatten<T>()`                                    | Flattens a multi-dimensional array into a single-dimensional array.       |
+| `ForEach<T>()`                                    | Executes an action on each element of an array.                           |
+| `ForEachIndexed<T>()`                             | Executes an action on each element of an array with its index.            |
+| `GroupBySequential<T, TKey>()`                    | Groups adjacent elements sharing a key or property.                       |
+| `Head<T>()`, `Tail<T>()`, `LastN<T>()`, `FirstN<T>()` | Provide various ways to slice and access elements. |
+| `Interleave<T>()`                                 | Interleaves elements of two arrays into a single array.                   |
+| `InsertAt<T>()`                                   | Inserts an element at a specified index.                                  |
+| `IsNullOrEmpty<T>()`, `IsEmpty<T>()`              | Check if an array is empty or null/empty, respectively.                   |
+| `IsSorted<T>()`                                   | Checks if the array is sorted according to a specified comparer.          |
+| `IsUnique<T>()`                                   | Determines whether all elements in the array are unique.                  |
+| `JoinToString<T>()`                               | Concatenates string representations of elements with a delimiter.         |
+| `Map<T, TResult>()`                               | Transforms each element of the array using a selector function.           |
+| `MaxBy<T, TKey>()`, `MinBy<T, TKey>()`            | Finds the maximum/minimum element based on a specified selector function. |
+| `MostCommon<T>()`                                 | Finds the most common element in the array.                               |
+| `Permute<T>()`                                    | Generates all possible permutations of the array.                         |
+| `RandomSample<T>()`                               | Selects a random sample of elements.                                      |
+| `RemoveAt<T>()`                                   | Removes the element at a specified index.                                 |
+| `RemoveDuplicates<T>()`                           | Removes duplicate elements from the array.                                |
+| `RemoveNulls<T>()`                                | Removes all null items from an array of reference types.                  |
+| `ReplaceAll<T>()`                                 | Replaces all occurrences of a specific value with another in the array.   |
+| `Resize<T>()`                                     | Resizes an array to a specified new size.                                 |
+| `Reverse<T>()`                                    | Reverses the elements of the array.                                       |
+| `RotateLeft<T>()`, `RotateRight<T>()`             | Rotates the array left or right by a specified number of positions.       |
+| `SafeGet<T>()`                                    | Retrieves an element at a specified index or a default value if out of range. |
+| `SafeSet<T>()`                                    | Sets a value at a specified index, resizing the array if necessary.       |
+| `Segment<T>()`                                    | Splits an array into segments based on a predicate.                       |
+| `SequentialPairs<T>()`                            | Generates a sequence of tuples from sequential pairs of elements.         |
+| `Shuffle<T>()`                                    | Randomly shuffles the elements of an array.                               |
+| `Slice<T>()`                                      | Returns a portion of the array, similar to substring for strings.         |
+| `Subset<T>()`                                     | Returns all possible subsets of the array.                                |
+| `SumBy<T>()`                                      | Calculates the sum of array elements based on a selector function.        |
+| `TakeWhile<T>()`, `SkipWhile<T>()`                | Takes or skips elements of the array while a condition is true.           |
+| `ToHashSet<T>()`                                  | Converts the array to a HashSet, removing duplicates.                     |
+| `ZipWith<T, TOther, TResult>()`                   | Combines two arrays into one using a specified selector function.         |
 
 ### DateTime Array methods
 

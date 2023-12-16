@@ -498,4 +498,219 @@ public static class GenericArrayExtensions
             yield return Tuple.Create(arr[i], arr[i + 1]);
         }
     }
+
+    /// <summary>
+    /// Finds the first and last elements in the array that match a given predicate.
+    /// </summary>
+    public static (T first, T last) FindFirstAndLast<T>(this T[] arr, Predicate<T> predicate)
+    {
+        var first = arr.FirstOrDefault(x => predicate(x));
+        var last = arr.LastOrDefault(x => predicate(x));
+        return (first, last);
+    }
+
+    /// <summary>
+    /// Reverses the elements of the array.
+    /// </summary>
+    public static T[] Reverse<T>(this T[] arr)
+    {
+        T[] newArray = new T[arr.Length];
+        Array.Copy(arr, newArray, arr.Length);
+        Array.Reverse(newArray);
+        return newArray;
+    }
+
+    /// <summary>
+    /// Fills the array with a given value.
+    /// </summary>
+    public static void Fill<T>(this T[] arr, T value)
+    {
+        for (int i = 0; i < arr.Length; i++)
+            arr[i] = value;
+    }
+
+    /// <summary>
+    /// Checks if the array is sorted according to a specified comparer.
+    /// </summary>
+    public static bool IsSorted<T>(this T[] arr, IComparer<T> comparer = null)
+    {
+        comparer ??= Comparer<T>.Default;
+        for (int i = 1; i < arr.Length; i++)
+            if (comparer.Compare(arr[i - 1], arr[i]) > 0)
+                return false;
+        return true;
+    }
+
+    /// <summary>
+    /// Removes duplicate elements from the array.
+    /// </summary>
+    public static T[] RemoveDuplicates<T>(this T[] arr)
+        => new HashSet<T>(arr).ToArray();
+
+    /// <summary>
+    /// Combines two arrays into a single array using a specified selector function.
+    /// </summary>
+    public static TResult[] ZipWith<T, TOther, TResult>(this T[] arr, TOther[] other, Func<T, TOther, TResult> selector)
+    {
+        var minLength = Math.Min(arr.Length, other.Length);
+        var result = new TResult[minLength];
+        for (int i = 0; i < minLength; i++)
+            result[i] = selector(arr[i], other[i]);
+        return result;
+    }
+
+    /// <summary>
+    /// Executes an action on each element of the array, providing the element and its index.
+    /// </summary>
+    public static void ForEachIndexed<T>(this T[] arr, Action<T, int> action)
+    {
+        for (int i = 0; i < arr.Length; i++)
+            action(arr[i], i);
+    }
+
+    /// <summary>
+    /// Calculates the sum of the array elements based on a selector function.
+    /// </summary>
+    public static decimal SumBy<T>(this T[] arr, Func<T, decimal> selector)
+        => arr.Sum(selector);
+
+    /// <summary>
+    /// Calculates the average of the array elements based on a selector function.
+    /// </summary>
+    public static double AverageBy<T>(this T[] arr, Func<T, double> selector)
+        => arr.Average(selector);
+
+    /// <summary>
+    /// Converts the array to a HashSet, removing duplicates and allowing for quick lookup.
+    /// </summary>
+    public static HashSet<T> ToHashSet<T>(this T[] arr)
+        => new HashSet<T>(arr);
+    /// <summary>
+    /// Transforms each element of the array using a selector function.
+    /// </summary>
+    public static TResult[] Map<T, TResult>(this T[] arr, Func<T, TResult> selector)
+    {
+        return arr.Select(selector).ToArray();
+    }
+
+    /// <summary>
+    /// Accumulates the array's elements from left to right.
+    /// </summary>
+    public static T FoldLeft<T>(this T[] arr, Func<T, T, T> func)
+    {
+        return arr.Aggregate(func);
+    }
+
+    /// <summary>
+    /// Accumulates the array's elements from right to left.
+    /// </summary>
+    public static T FoldRight<T>(this T[] arr, Func<T, T, T> func)
+    {
+        return arr.Reverse().Aggregate(func);
+    }
+
+    /// <summary>
+    /// Determines whether all elements in the array are unique.
+    /// </summary>
+    public static bool IsUnique<T>(this T[] arr)
+    {
+        return arr.Distinct().Count() == arr.Length;
+    }
+
+    /// <summary>
+    /// Generates all possible permutations of the array.
+    /// </summary>
+    public static IEnumerable<T[]> Permute<T>(this T[] arr)
+    {
+        return Permute(arr, arr.Length);
+    }
+
+    /// <summary>
+    /// Returns all possible subsets of the array.
+    /// </summary>
+    public static IEnumerable<IEnumerable<T>> Subset<T>(this T[] arr)
+    {
+        return Enumerable.Range(0, 1 << arr.Length)
+                         .Select(index => arr.Where((t, i) => (index & (1 << i)) != 0));
+    }
+
+    /// <summary>
+    /// Checks if the array contains a specified element.
+    /// </summary>
+    public static bool Contains<T>(this T[] arr, T item) where T : IEquatable<T>
+    {
+        return arr.Any(x => x.Equals(item));
+    }
+
+    /// <summary>
+    /// Concatenates the string representations of array elements, separated by a specified delimiter.
+    /// </summary>
+    public static string JoinToString<T>(this T[] arr, string delimiter)
+    {
+        return string.Join(delimiter, arr.Select(x => x.ToString()));
+    }
+
+    /// <summary>
+    /// Finds an element matching a predicate, or returns a default value if none is found.
+    /// </summary>
+    public static T FindOrDefault<T>(this T[] arr, Predicate<T> match, T defaultValue = default)
+    {
+        return arr.FirstOrDefault(x => match(x)) ?? defaultValue;
+    }
+
+    /// <summary>
+    /// Takes elements from the array while a condition is true.
+    /// </summary>
+    public static T[] TakeWhile<T>(this T[] arr, Func<T, bool> predicate)
+    {
+        return arr.TakeWhile(predicate).ToArray();
+    }
+
+    /// <summary>
+    /// Skips elements from the array while a condition is true.
+    /// </summary>
+    public static T[] SkipWhile<T>(this T[] arr, Func<T, bool> predicate)
+    {
+        return arr.SkipWhile(predicate).ToArray();
+    }
+
+    /// <summary>
+    /// Groups adjacent elements sharing a key or property.
+    /// </summary>
+    public static IEnumerable<IGrouping<TKey, T>> GroupBySequential<T, TKey>(this T[] arr, Func<T, TKey> keySelector)
+        where TKey : notnull
+    {
+        TKey lastKey = default!;
+        bool hasLastKey = false;
+
+        return arr.GroupBy(x =>
+        {
+            TKey key = keySelector(x);
+            if (!hasLastKey || !EqualityComparer<TKey>.Default.Equals(key, lastKey))
+            {
+                lastKey = key;
+                hasLastKey = true;
+            }
+            return lastKey;
+        });
+    }
+
+    // Helper method for Permute
+    private static IEnumerable<T[]> Permute<T>(T[] arr, int count)
+    {
+        if (count == 1) yield return arr;
+        else
+        {
+            for (int i = 0; i < count; i++)
+            {
+                foreach (var perm in Permute(arr, count - 1))
+                    yield return perm;
+
+                if (count % 2 == 0)
+                    (arr[i], arr[count - 1]) = (arr[count - 1], arr[i]); // Swap for even count
+                else
+                    (arr[0], arr[count - 1]) = (arr[count - 1], arr[0]); // Swap for odd count
+            }
+        }
+    }
 }
