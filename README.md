@@ -143,6 +143,25 @@ Or just copy whatever you need from this repository :)
 |`ToFrequencyMap`| Creates a frequency map (count of each element).|
 |`Variance`| Calculates the variance of the array elements.|
 
+## Multi Dimensional Array methods
+
+## Generic Multi Dimensional Array methods
+
+| Name                                | Description                                                          |
+|-------------------------------------|----------------------------------------------------------------------|
+| `AllEqual<T>()`                     | Checks if all elements in a multi-dimensional array are identical.   |
+| `Contains<T>()`                     | Checks if the multi-dimensional array contains a specific element.   |
+| `CountOf<T>()`                      | Counts occurrences of a specific item in the multi-dimensional array.|
+| `DeepCopy<T>()`                     | Creates a deep copy of the multi-dimensional array.                  |
+| `Fill<T>()`                         | Fills the multi-dimensional array with a specific value.             |
+| `FindFirst<T>()`                    | Finds the first occurrence of an element that matches a condition.   |
+| `Flatten<T>()`                      | Flattens a multi-dimensional array into a single-dimensional array.  |
+| `ForEach<T>()`                      | Iterates over each element in a multi-dimensional array and executes the provided action. |
+| `GetColumn<T>()`                    | Retrieves a specific column from a multi-dimensional array.          |
+| `GetRow<T>()`                       | Retrieves a specific row from a multi-dimensional array.             |
+| `Rotate90DegreesClockwise<T>()`     | Rotates the array 90 degrees clockwise.                              |
+| `Transpose<T>()`                    | Transposes a two-dimensional array.                                  |
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
