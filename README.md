@@ -145,7 +145,7 @@ Or just copy whatever you need from this repository :)
 
 ## Multi Dimensional Array methods
 
-## Generic Multi Dimensional Array methods
+### Generic Multi Dimensional Array methods
 
 | Name                                | Description                                                          |
 |-------------------------------------|----------------------------------------------------------------------|
