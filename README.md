@@ -4,7 +4,6 @@ A comprehensive collection of extension methods for arrays in C#.
 
 ## Index
 
-- [Array Extension Methods](#features-star)
 - [Generic Array Methods](#generic-array-methods) (44 methods)
 - [DateTime Array Methods](#datetime-array-methods) (31 methods)
 - [String Array Methods](#string-array-methods) (43 methods
