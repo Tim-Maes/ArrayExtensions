@@ -585,6 +585,7 @@ public static class GenericArrayExtensions
     /// </summary>
     public static HashSet<T> ToHashSet<T>(this T[] arr)
         => new HashSet<T>(arr);
+
     /// <summary>
     /// Transforms each element of the array using a selector function.
     /// </summary>
@@ -694,6 +695,201 @@ public static class GenericArrayExtensions
             return lastKey;
         });
     }
+
+    /// <summary>
+    /// Splits the array into two arrays based on a predicate.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to partition.</param>
+    /// <param name="predicate">The predicate to determine which array each element goes to.</param>
+    /// <returns>A tuple containing two arrays: first contains elements matching the predicate, second contains the rest.</returns>
+    public static (T[] matching, T[] nonMatching) Partition<T>(this T[] arr, Predicate<T> predicate)
+    {
+        var matching = new List<T>();
+        var nonMatching = new List<T>();
+
+        foreach (var item in arr)
+        {
+            if (predicate(item))
+                matching.Add(item);
+            else
+                nonMatching.Add(item);
+        }
+
+        return (matching.ToArray(), nonMatching.ToArray());
+    }
+
+    /// <summary>
+    /// Applies a function to each element and its index, returning a new array.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the source array.</typeparam>
+    /// <typeparam name="TResult">The type of elements in the result array.</typeparam>
+    /// <param name="arr">The source array.</param>
+    /// <param name="selector">A function that takes an element and its index and returns a new value.</param>
+    /// <returns>A new array with the transformed elements.</returns>
+    public static TResult[] SelectWithIndex<T, TResult>(this T[] arr, Func<T, int, TResult> selector)
+        => arr.Select(selector).ToArray();
+
+    /// <summary>
+    /// Finds all elements that appear more than once in the array.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to analyze.</param>
+    /// <returns>An array of elements that appear more than once.</returns>
+    public static T[] FindDuplicateElements<T>(this T[] arr) where T : IEquatable<T>
+        => arr.GroupBy(x => x)
+              .Where(g => g.Count() > 1)
+              .Select(g => g.Key)
+              .ToArray();
+
+    /// <summary>
+    /// Returns the indices of all duplicate elements in the array.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to analyze.</param>
+    /// <returns>An array of indices where duplicate elements occur.</returns>
+    public static int[] FindDuplicateIndices<T>(this T[] arr) where T : IEquatable<T>
+    {
+        var duplicateValues = arr.FindDuplicateElements();
+        return arr.Select((value, index) => new { value, index })
+                  .Where(x => duplicateValues.Contains(x.value))
+                  .Select(x => x.index)
+                  .ToArray();
+    }
+
+    /// <summary>
+    /// Batches the array elements into groups of a specified size.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to batch.</param>
+    /// <param name="batchSize">The size of each batch.</param>
+    /// <returns>An enumerable of arrays, each containing up to batchSize elements.</returns>
+    public static IEnumerable<T[]> Batch<T>(this T[] arr, int batchSize)
+    {
+        if (batchSize <= 0)
+            throw new ArgumentOutOfRangeException(nameof(batchSize), "Batch size must be positive.");
+
+        for (int i = 0; i < arr.Length; i += batchSize)
+        {
+            yield return arr.Skip(i).Take(batchSize).ToArray();
+        }
+    }
+
+    /// <summary>
+    /// Creates a sliding window over the array elements.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to create windows from.</param>
+    /// <param name="windowSize">The size of each window.</param>
+    /// <returns>An enumerable of arrays, each representing a sliding window.</returns>
+    public static IEnumerable<T[]> SlidingWindow<T>(this T[] arr, int windowSize)
+    {
+        if (windowSize <= 0)
+            throw new ArgumentOutOfRangeException(nameof(windowSize), "Window size must be positive.");
+
+        if (windowSize > arr.Length)
+            yield break;
+
+        for (int i = 0; i <= arr.Length - windowSize; i++)
+        {
+            yield return arr.Skip(i).Take(windowSize).ToArray();
+        }
+    }
+
+    /// <summary>
+    /// Merges two sorted arrays into a single sorted array.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the arrays.</typeparam>
+    /// <param name="arr1">The first sorted array.</param>
+    /// <param name="arr2">The second sorted array.</param>
+    /// <param name="comparer">Optional comparer for sorting.</param>
+    /// <returns>A new sorted array containing all elements from both input arrays.</returns>
+    public static T[] Merge<T>(this T[] arr1, T[] arr2, IComparer<T> comparer = null)
+    {
+        comparer ??= Comparer<T>.Default;
+        var result = new List<T>();
+        int i = 0, j = 0;
+
+        while (i < arr1.Length && j < arr2.Length)
+        {
+            if (comparer.Compare(arr1[i], arr2[j]) <= 0)
+                result.Add(arr1[i++]);
+            else
+                result.Add(arr2[j++]);
+        }
+
+        while (i < arr1.Length)
+            result.Add(arr1[i++]);
+
+        while (j < arr2.Length)
+            result.Add(arr2[j++]);
+
+        return result.ToArray();
+    }
+
+    /// <summary>
+    /// Computes the set intersection of two arrays.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the arrays.</typeparam>
+    /// <param name="arr1">The first array.</param>
+    /// <param name="arr2">The second array.</param>
+    /// <returns>An array containing elements that exist in both arrays.</returns>
+    public static T[] Intersect<T>(this T[] arr1, T[] arr2)
+        => arr1.Intersect(arr2).ToArray();
+
+    /// <summary>
+    /// Computes the set union of two arrays.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the arrays.</typeparam>
+    /// <param name="arr1">The first array.</param>
+    /// <param name="arr2">The second array.</param>
+    /// <returns>An array containing all unique elements from both arrays.</returns>
+    public static T[] Union<T>(this T[] arr1, T[] arr2)
+        => arr1.Union(arr2).ToArray();
+
+    /// <summary>
+    /// Computes the set difference between two arrays (elements in first but not in second).
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the arrays.</typeparam>
+    /// <param name="arr1">The first array.</param>
+    /// <param name="arr2">The second array.</param>
+    /// <returns>An array containing elements that exist in the first array but not in the second.</returns>
+    public static T[] Except<T>(this T[] arr1, T[] arr2)
+        => arr1.Except(arr2).ToArray();
+
+    /// <summary>
+    /// Checks if the array is a palindrome.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to check.</param>
+    /// <returns>True if the array reads the same forwards and backwards.</returns>
+    public static bool IsPalindrome<T>(this T[] arr) where T : IEquatable<T>
+    {
+        if (arr == null || arr.Length <= 1)
+            return true;
+
+        int left = 0;
+        int right = arr.Length - 1;
+
+        while (left < right)
+        {
+            if (!arr[left].Equals(arr[right]))
+                return false;
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// Converts the array to a read-only collection.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to convert.</param>
+    /// <returns>A read-only collection containing the array elements.</returns>
+    public static IReadOnlyCollection<T> AsReadOnly<T>(this T[] arr)
+        => Array.AsReadOnly(arr);
 
     // Helper method for Permute
     private static IEnumerable<T[]> Permute<T>(T[] arr, int count)
